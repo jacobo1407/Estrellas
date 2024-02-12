@@ -146,7 +146,6 @@ const Home = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -204,6 +203,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Rosariva',
     fontSize: 20,
+    alignSelf:'center',
+    marginTop:10,
   },
 
   cardScrollContainer: {
