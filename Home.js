@@ -146,6 +146,7 @@ const Home = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
 
   image: {
     marginTop: 10,
+    marginBottom:20,
     width: '95%',
     flex: 1,
     borderRadius: 5,
@@ -183,8 +185,8 @@ const styles = StyleSheet.create({
   },
 
   imageCard: {
-    marginTop: 7,
-    width: 285,
+    marginTop: 2,
+    width: 295,
     flex: 1,
     borderRadius: 5,
   },
