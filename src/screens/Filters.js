@@ -11,7 +11,7 @@ import {
 import { Button } from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import getData from '../services/services';
+import getData from '../Services/GetData';
 import ScreensContext from './ScreenContext';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
@@ -68,16 +68,16 @@ const Filters = ({ navigation }) => {
     const currentDate = new Date();
     const dateEnterObj = new Date(date);
 
-    if (dateEnterObj.getDate() < currentDate.getDate()) {
+    if (dateEnterObj.getDate() <= currentDate.getDate()) {
       setErrorMessageDateEntry({
         msgDate:
           'Error: La fecha de entrada no puede ser anterior a la fecha actual.',
       });
       setDateEntryError(true);
-    } else if (dateEnterObj.getTime() > selectedDateSalida.getTime()) {
+    } else if (dateEnterObj.getTime() >= selectedDateSalida.getTime()) {
       setErrorMessageDateEntry({
         msgDate:
-          'Error: La fecha de entrada no puede ser mayor que la fecha de salida.',
+          'Error: La fecha de entrada no puede ser igual o mayor que la fecha de salida.',
       });
       setDateEntryError(true);
     } else {
