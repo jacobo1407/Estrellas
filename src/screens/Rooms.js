@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Image, ScrollView, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ScreensContext from './ScreenContext';
 
 const Rooms = (props) => {
   const [roomImages, setRoomImages] = useState([]);
-  const [id, setId] = useState(2);
+  const [id, setId] = useContext(ScreensContext);
   const [description, setDescription] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(null);
   const [price, setPrice] = useState(null);
