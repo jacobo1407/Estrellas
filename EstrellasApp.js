@@ -39,8 +39,16 @@ const ProfileStack = () => (
       component={Profile}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }}/>
-    <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }}/>
+    <Stack.Screen
+      name="LogIn"
+      component={LogIn}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="SignUp"
+      component={SignUp}
+      options={{ headerShown: false }}
+    />
   </Stack.Navigator>
 );
 
@@ -57,8 +65,16 @@ const RoomsStack = () => (
       component={Filters}
       options={{ headerShown: false }}
     />
-    <Stack.Screen name="ActiveFilters" component={ActiveFilters} />
-    <Stack.Screen name="Rooms" component={Rooms} />
+    <Stack.Screen
+      name="ActiveFilters"
+      component={ActiveFilters}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Rooms"
+      component={Rooms}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen
       name="Payment"
       component={Payment}
