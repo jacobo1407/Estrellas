@@ -141,6 +141,7 @@ const App = () => {
           name="Profile"
           component={ProfileStack}
           options={{
+            tabBarHideOnKeyboard: true,
             headerTitle: () => (
               <Image
                 source={require('./src/img/estrellas.png')}
