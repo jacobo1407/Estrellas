@@ -133,12 +133,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  containerDark: {
-    backgroundColor: '#001122',
-  },
-  containerLight: {
-    backgroundColor: 'lightblue',
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
