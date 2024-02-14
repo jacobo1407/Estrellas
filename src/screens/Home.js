@@ -18,7 +18,7 @@ import {
   Portal,
 } from 'react-native-paper';
 import ScreenContext from './ScreenContext';
-
+import { useTranslation } from 'react-i18next';
 const images = [
   require('../img/hall.jpg'),
   require('../img/zonaPisci.jpg'),
@@ -30,6 +30,7 @@ const Home = () => {
   const [poolModal, setPoolModal] = useState(false);
   const [massageModal, setMassageModal] = useState(false);
   const swiperRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -84,7 +85,7 @@ const Home = () => {
                 styles.serviciosTitle,
                 theme === 'black' ? { color: 'white' } : { color: 'black' },
               ]}>
-              SERVICIOS
+              {t("SERVICIOS")} 
             </Text>
           </View>
           <ScrollView
