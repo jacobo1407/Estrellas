@@ -17,6 +17,7 @@ import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 const Filters = ({ navigation }) => {
   const {
+    theme,
     filterRooms,
     setFilterRooms,
     imagesRooms,
@@ -188,8 +189,18 @@ const Filters = ({ navigation }) => {
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <Text style={styles.filterButtonText}>RESERVA HABITACIONES</Text>
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: theme === 'black' ? '#005588' : 'lightblue' },
+          ]}>
+          <Text
+            style={[
+              styles.filterButtonText,
+              theme === 'black' ? { color: 'white' } : { color: 'black' },
+            ]}>
+            RESERVA HABITACIONES
+          </Text>
           <View style={styles.swiperBorder} />
           <View style={styles.dateContainer}>
             <View style={styles.dates}>
@@ -386,7 +397,6 @@ const styles = StyleSheet.create({
   datePickerLabel: {
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'darkred',
   },
   calendar: {
     marginLeft: 10,
