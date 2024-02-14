@@ -7,8 +7,7 @@ import ScreenContext from './ScreenContext';
 import getData from '../Services/GetData';
 
 const Rooms = (props) => {
-  const { room } = useContext(ScreenContext);
-  const {id} = useContext(ScreenContext);
+  const { theme, room, id } = useContext(ScreenContext);
   const [roomImages, setRoomImages] = useState([]);
   const [titleRoom, setTitleRoom] = useState('');
   const [description, setDescription] = useState('');
@@ -106,7 +105,10 @@ const Rooms = (props) => {
     <View style={{ flex: 1 }}>
       <ScrollView>
         <Swiper
-          style={styles.swiper}
+          style={[
+            styles.swiper,
+            { backgroundColor: theme === 'black' ? '#005588' : 'lightblue' },
+          ]}
           showsButtons={false}
           loop={false}
           index={index}
@@ -114,16 +116,40 @@ const Rooms = (props) => {
           showsPagination={true}>
           {renderImages()}
         </Swiper>
-        <View style={styles.container}>
-          <Text style={styles.filterButtonText}>{titleRoom}</Text>
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: theme === 'black' ? '#005588' : 'lightblue' },
+          ]}>
+          <Text
+            style={[
+              styles.filterButtonText,
+              theme === 'black' ? { color: 'white' } : { color: 'black' },
+            ]}>
+            {titleRoom}
+          </Text>
           <View style={styles.swiperBorder} />
           <View style={styles.descriptionContainer}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            <Text
+              style={[
+                { fontSize: 18, fontWeight: 'bold' },
+                theme === 'black' ? { color: 'white' } : { color: 'black' },
+              ]}>
               Description
             </Text>
-            <Text style={{ textAlign: 'center' }}>{description}</Text>
+            <Text
+              style={[
+                { textAlign: 'center' },
+                theme === 'black' ? { color: 'white' } : { color: 'black' },
+              ]}>
+              {description}
+            </Text>
             <View style={styles.swiperBorder2} />
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
+            <Text
+              style={[
+                { fontSize: 18, fontWeight: 'bold' },
+                theme === 'black' ? { color: 'white' } : { color: 'black' },
+              ]}>
               Information
             </Text>
             <RoomFeatures
