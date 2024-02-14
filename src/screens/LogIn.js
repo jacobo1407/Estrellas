@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import ScreenContext from './ScreenContext';
@@ -56,7 +56,10 @@ const LogIn = () => {
         setEmail('');
         setPassword('');
 
-        alert('Credenciales incorrectas.');
+        Alert.alert(
+          'Crendenciales incorrectas',
+          'Las credenciales introducidas son incorrectas.'
+        );
       }
     } catch (error) {
       console.error('An error has occurred with the POST request:', error);
@@ -67,7 +70,9 @@ const LogIn = () => {
     <View
       style={[
         styles.container,
-        theme === 'black' ? styles.containerDark : styles.containerLight,
+        theme === 'black'
+          ? { backgroundColor: '#005588' }
+          : { backgroundColor: 'lightblue' },
       ]}>
       <Text
         style={[
