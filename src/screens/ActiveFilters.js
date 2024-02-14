@@ -6,7 +6,8 @@ import ScreensContext from './ScreenContext';
 import customIcon from '../img/m2.png';
 
 const ActiveFilters = (props) => {
-  const { filterRooms, imagesRooms, room, setRoom } = useContext(ScreensContext);
+  const { theme, filterRooms, imagesRooms, room, setRoom } =
+    useContext(ScreensContext);
 
   const informationRoom = (idRoom) => {
     setRoom(idRoom);
@@ -14,8 +15,18 @@ const ActiveFilters = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.llista}> VISTA HABITACIONES </Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme === 'black' ? '#005588' : 'lightblue' },
+      ]}>
+      <Text
+        style={[
+          styles.llista,
+          theme === 'black' ? { color: 'white' } : { color: 'black' },
+        ]}>
+        HABITACIONES DISPONIBLES
+      </Text>
       <ScrollView
         contentContainerStyle={styles.scrollViewContent}
         showsVerticalScrollIndicator={false}>
@@ -113,10 +124,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     borderWidth: 2,
-    borderColor: 'lightyellow',
+    borderColor: 'purple',
     padding: 10,
     textAlign: 'center',
-    backgroundColor: 'lightcyan',
     borderRadius: 8,
   },
   imageContainer: {
