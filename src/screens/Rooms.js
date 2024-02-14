@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Image, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, Image, ScrollView, StyleSheet, Text, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import ScreensContext from './ScreenContext';
+import ScreenContext from './ScreenContext';
+import getData from '../Services/GetData';
 
 const Rooms = (props) => {
+  const { room } = useContext(ScreenContext);
+  const {id} = useContext(ScreenContext);
   const [roomImages, setRoomImages] = useState([]);
-  const [id, setId] = useContext(ScreensContext);
+  const [titleRoom, setTitleRoom] = useState('');
   const [description, setDescription] = useState('');
   const [peopleNumber, setPeopleNumber] = useState(null);
   const [price, setPrice] = useState(null);
@@ -15,37 +18,42 @@ const Rooms = (props) => {
   const [m2, setM2] = useState(null);
   const [index, setIndex] = useState(0);
 
+  console.log(room);
   useEffect(() => {
     getInfo();
   }, []);
 
   const getInfo = async () => {
     try {
-      const response = await fetch(
-        `http://44.195.98.192:8080/ESTRELLAS/roomInformation?id=${id}`
+      const data = await getData(
+        `http://44.195.98.192:8080/ESTRELLAS/roomInformation?id=${room}`
       );
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+      const title = data.title;
+      const images = data.images;
+      const description = data.description;
+      const numPeople = data.peopleNumber;
+      const price = data.price;
+      const beds = data.beds;
+      const m2 = data.m2;
 
-        const images = data.images;
-        const description = data.description;
-        const numPeople = data.peopleNumber;
-        const price = data.price;
-        const beds = data.beds;
-        const m2 = data.m2;
-
-        setDescription(description);
-        setPeopleNumber(numPeople);
-        setPrice(price);
-        setBeds(beds);
-        setRoomImages(images);
-        setM2(m2);
-      } else {
-        Alert.alert('Error', `Failed to fetch Room`);
-      }
+      setTitleRoom(title);
+      setDescription(description);
+      setPeopleNumber(numPeople);
+      setPrice(price);
+      setBeds(beds);
+      setRoomImages(images);
+      setM2(m2);
     } catch (error) {
       console.log(error);
+      Alert.alert('Error', `Failed to fetch Room`);
+    }
+  };
+
+  const handlePaymentOnPress = () => {
+    if (id === -1) {
+      Alert.alert('Inicio sesión', 'Antes de pagar debes iniciar sesión.');
+    } else {
+      props.navigation.navigate('Payment');
     }
   };
 
@@ -107,6 +115,7 @@ const Rooms = (props) => {
           {renderImages()}
         </Swiper>
         <View style={styles.container}>
+          <Text style={styles.filterButtonText}>{titleRoom}</Text>
           <View style={styles.swiperBorder} />
           <View style={styles.descriptionContainer}>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -124,7 +133,8 @@ const Rooms = (props) => {
               m2={m2}
             />
           </View>
-          <View style={{backgroundColor: 'white', margin: 30, borderRadius: 10}}>
+          <View
+            style={{ backgroundColor: 'white', margin: 30, borderRadius: 10 }}>
             <View
               style={{
                 flexDirection: 'row',
@@ -138,8 +148,8 @@ const Rooms = (props) => {
               <Button
                 style={styles.button}
                 mode="contained"
-                onPress={() => props.navigation.navigate('Home')}>
-                RERSERVAR
+                onPress={() => handlePaymentOnPress()}>
+                RESERVAR
               </Button>
             </View>
           </View>
@@ -237,6 +247,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#d4afe0',
     width: '50%',
     marginBottom: 20,
+  },
+  filterButtonText: {
+    marginTop: 13,
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: '10px 20px',
+    textTransform: 'uppercase',
+    borderRadius: 5,
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    transition: 'background-color 0.3s ease, color 0.3s ease',
+    cursor: 'pointer',
+    textAlign: 'center',
   },
 });
 

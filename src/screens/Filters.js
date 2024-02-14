@@ -16,12 +16,17 @@ import ScreensContext from './ScreenContext';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
 
 const Filters = ({ navigation }) => {
-  const { filterRooms, setFilterRooms, imagesRooms, setImagesRooms } =
-    useContext(ScreensContext);
+  const {
+    filterRooms,
+    setFilterRooms,
+    imagesRooms,
+    setImagesRooms,
+    setEntranceDateContext,
+    setExitDateContext,
+  } = useContext(ScreensContext);
   const [selectedDateEntrada, setSelectedDateEntrada] = useState(new Date());
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-
   const [selectedDateSalida, setSelectedDateSalida] = useState(tomorrow);
   const [isDatePickerVisibleEntrada, setDatePickerVisibilityEntrada] =
     useState(false);
@@ -34,7 +39,6 @@ const Filters = ({ navigation }) => {
   const [numAdults, setNumAdults] = useState(1);
   const [numChildren, setNumChildren] = useState(0);
   const [loading, setLoading] = useState(false);
-
   const [numPeople, setNumPeople] = useState(1);
 
   const validateNumAdults = (option) => {
@@ -68,7 +72,7 @@ const Filters = ({ navigation }) => {
     const currentDate = new Date();
     const dateEnterObj = new Date(date);
 
-    if (dateEnterObj.getDate() <= currentDate.getDate()) {
+    if (dateEnterObj.getDate() < currentDate.getDate()) {
       setErrorMessageDateEntry({
         msgDate:
           'Error: La fecha de entrada no puede ser anterior a la fecha actual.',
@@ -143,21 +147,17 @@ const Filters = ({ navigation }) => {
         );
       } else {
         response.forEach((room) => {
+          const idRoom = room.idRoom;
           const titleRoom = room.title;
-          console.log('Mi titulo de la habitación es: ' + titleRoom);
           const peopleNumber = room.peopleNumber;
-          console.log(peopleNumber);
           const price = room.price;
-          console.log('El precio es: ' + price);
           const beds = room.beds;
-          console.log(beds);
           const m2 = room.m2;
-          console.log(m2);
           const imagesAPI = [...room.images];
-          console.log(imagesAPI);
           setImagesRooms(imagesAPI);
 
           roomsInfo.push({
+            id: idRoom,
             title: titleRoom,
             peopleNumber: peopleNumber,
             beds: beds,
@@ -168,6 +168,9 @@ const Filters = ({ navigation }) => {
         });
         setLoading(false);
         setFilterRooms(roomsInfo);
+        setEntranceDateContext(selectedDateEntrada);
+        setExitDateContext(selectedDateSalida);
+
         navigation.navigate('ActiveFilters');
       }
     } catch (error) {

@@ -1,10 +1,14 @@
 import { useState, useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { TextInput, Button, Divider } from 'react-native-paper';
 import ScreenContext from './ScreenContext';
 
 const Payment = (props) => {
   const { theme } = useContext(ScreenContext);
+  const { room } = useContext(ScreenContext);
+  const { id } = useContext(ScreenContext);
+  const { entranceDateContext } = useContext(ScreenContext);
+  const { exitDateContext } = useContext(ScreenContext);
   const [cardOwner, setCardOwner] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [cardDate, setCardDate] = useState('');
@@ -33,31 +37,6 @@ const Payment = (props) => {
     setSecurityCode(formattedCode);
   };
 
-  const handlePayment = () => {
-    if (!validateCardNumber(cardNumber)) {
-      alert('Número de tarjeta inválido.');
-      return;
-    }
-    if (!validateExpiryDate(cardDate)) {
-      alert('Fecha de caducidad inválida.');
-      return;
-    }
-    if (!validateSecurityCode(securityCode)) {
-      alert('Código de seguridad inválido.');
-      return;
-    }
-    if (!cardOwner || !cardNumber || !cardDate || !securityCode) {
-      alert('Todos los campos son obligatorios.');
-      return;
-    }
-
-    setCardOwner('');
-    setCardNumber('');
-    setCardDate('');
-    setSecurityCode('');
-    alert('¡Tu pago ha sido procesado correctamente!');
-  };
-
   const validateCardNumber = (cardNumber) => {
     return cardNumber.length === 16;
   };
@@ -74,6 +53,74 @@ const Payment = (props) => {
 
   const validateSecurityCode = (securityCode) => {
     return securityCode.length === 3;
+  };
+
+  const handlePayment = () => {
+    /*
+    if (!validateCardNumber(cardNumber)) {
+      alert('Número de tarjeta inválido.');
+      return;
+    }
+    if (!validateExpiryDate(cardDate)) {
+      alert('Fecha de caducidad inválida.');
+      return;
+    }
+    if (!validateSecurityCode(securityCode)) {
+      alert('Código de seguridad inválido.');
+      return;
+    }
+    if (!cardOwner || !cardNumber || !cardDate || !securityCode) {
+      alert('Todos los campos son obligatorios.');
+      return;
+    }*/
+
+    setCardOwner('');
+    setCardNumber('');
+    setCardDate('');
+    setSecurityCode('');
+    bookRoom();
+  };
+
+  const bookRoom = () => {
+    const url = 'http://44.195.98.192:8080/ESTRELLAS/bookRoom';
+
+    const body = {
+      entranceDate: entranceDateContext,
+      exitDate: exitDateContext,
+      idUser: id,
+      idRoom: room,
+    };
+
+    postData(url, body);
+  };
+
+  const postData = async (url, body) => {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+
+      if (response.status === 204) {
+        if (response.ok) {
+          Alert.alert(
+            'Pago realizado',
+            '¡Tu pago ha sido procesado correctamente!'
+          );
+          props.navigation.navigate('Filters');
+        }
+      } else {
+        Alert.alert(
+          'Pago no realizado',
+          'Se ha producido un error al momento de pagar.'
+        );
+      }
+    } catch (error) {
+      console.error('An error has occurred with the POST request:', error);
+    }
   };
 
   return (
@@ -127,9 +174,14 @@ const Payment = (props) => {
         <Button
           style={styles.button}
           mode="outlined"
-          color="black"
+          labelStyle={{
+            fontSize: 18,
+            color: 'white',
+            fontWeight: 'bold',
+            letterSpacing: 1,
+          }}
           onPress={handlePayment}>
-          <Text style={styles.buttonText}>Pagar</Text>
+          PAGAR
         </Button>
       </View>
     </View>
@@ -155,22 +207,14 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     marginTop: 50,
-    width: '60%',
-    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   button: {
     backgroundColor: 'orange',
-    color: 'white',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-
-  buttonText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: 'white',
+    borderRadius: 30,
+    padding: 15,
   },
 
   swiperBorder: {

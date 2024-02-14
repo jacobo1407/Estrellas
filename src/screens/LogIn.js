@@ -2,15 +2,18 @@ import { useState, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
 import ScreenContext from './ScreenContext';
 
-const LogIn = (props) => {
-  const { setId } = useContext(ScreenContext);
-  const { theme } = useContext(ScreenContext);
+const LogIn = () => {
+  const { setId, theme } = useContext(ScreenContext);
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -21,9 +24,9 @@ const LogIn = (props) => {
   };
 
   const handleLogin = () => {
-    let url = 'http://44.195.98.192:8080/ESTRELLAS/login';
+    const url = 'http://44.195.98.192:8080/ESTRELLAS/login';
 
-    let body = {
+    const body = {
       email: email,
       password: password,
     };
@@ -41,7 +44,7 @@ const LogIn = (props) => {
         },
       });
 
-      if (response.status == 202) {
+      if (response.status === 202) {
         if (response.ok) {
           const jsonResponse = await response.json();
           const id = jsonResponse.id;
@@ -56,60 +59,63 @@ const LogIn = (props) => {
         alert('Credenciales incorrectas.');
       }
     } catch (error) {
-      console.error('An error has ocurred with the POST request:', error);
+      console.error('An error has occurred with the POST request:', error);
     }
   };
 
   return (
     <View
       style={[
-        styles.layout,
-        theme === 'black'
-          ? { backgroundColor: '#005588' }
-          : { backgroundColor: 'lightblue' },
+        styles.container,
+        theme === 'black' ? styles.containerDark : styles.containerLight,
       ]}>
       <Text
         style={[
           styles.title,
-          theme === 'black' ? { color: 'white' } : { color: 'black' },
+          theme === 'black' ? styles.titleDark : styles.titleLight,
         ]}>
-        Datos Inicio de Sesion
+        Datos Inicio de Sesión
       </Text>
       <TextInput
-        label="Correo eléctronico"
+        label="Correo electrónico"
         onChangeText={handleEmailChange}
         value={email}
         placeholder="Introduce correo"
         mode="outlined"
-        outlineColor="purple"
+        outlineColor={theme === 'black' ? 'white' : 'purple'}
       />
-
       <TextInput
         label="Contraseña"
         onChangeText={handlePasswordChange}
         value={password}
         placeholder="Introduce Contraseña"
         mode="outlined"
-        outlineColor="purple"
+        outlineColor={theme === 'black' ? 'white' : 'purple'}
         style={{ marginTop: 10 }}
-        secureTextEntry
+        secureTextEntry={!showPassword}
+        right={
+          <TextInput.Icon
+            name={showPassword ? 'eye-off' : 'eye'}
+            color={theme === 'black' ? 'white' : 'black'}
+            onPress={togglePasswordVisibility}
+          />
+        }
       />
-      <View style={{ marginTop: 50 }}>
+      <View style={{ marginTop: 30 }}>
         <Button
           style={styles.button}
-          title="Iniciar Sesion"
-          mode="outlined"
-          color="black"
+          mode="contained"
+          color={theme === 'black' ? 'white' : 'black'}
           onPress={handleLogin}>
-          Inicia Sesion{' '}
+          Iniciar Sesión
         </Button>
       </View>
       <Text
         style={[
-          { marginTop: 20, textAlign: 'center' },
-          theme === 'black' ? { color: 'white' } : { color: 'black' },
+          styles.signupText,
+          theme === 'black' ? styles.signupTextDark : styles.signupTextLight,
         ]}
-        onPress={() => props.navigation.navigate('SignUp')}>
+        onPress={() => navigation.navigate('SignUp')}>
         ¿No tienes una cuenta? Regístrate aquí
       </Text>
     </View>
@@ -117,22 +123,42 @@ const LogIn = (props) => {
 };
 
 const styles = StyleSheet.create({
-  layout: {
+  container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 8,
+    padding: 20,
+  },
+  containerDark: {
+    backgroundColor: '#001122',
+  },
+  containerLight: {
     backgroundColor: 'lightblue',
   },
   title: {
-    margin: 8,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginVertical: 20,
+  },
+  titleDark: {
+    color: 'white',
+  },
+  titleLight: {
+    color: 'black',
   },
   button: {
-    backgroundColor: 'white',
-    color: 'black',
     borderRadius: 10,
+  },
+  signupText: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  signupTextDark: {
+    color: 'white',
+  },
+  signupTextLight: {
+    color: 'black',
   },
 });
 
