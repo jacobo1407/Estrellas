@@ -15,7 +15,7 @@ const ConfigurationsScreen = () => {
   };
 
   const toggleLanguage = () => {
-    const newLanguage = currentLanguage === 'es' ? 'en' : 'es'; // Usamos el estado del idioma actual
+    const newLanguage = currentLanguage === 'en' ? 'es' : 'en'; // Usamos el estado del idioma actual
     console.log('Nuevo idioma:', newLanguage); // Comprobamos el nuevo idioma
     i18n.changeLanguage(newLanguage);
     setCurrentLanguage(newLanguage); // Actualizamos el estado del idioma después de cambiarlo
