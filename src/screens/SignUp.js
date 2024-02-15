@@ -243,7 +243,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correo electronico:</Text>
+          <Text style={styles.contrasenya}>Correo electrónico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -252,7 +252,7 @@ const SignUp = (props) => {
                 setShowWarningEmail(false);
               }
             }}
-            placeholder="Correo electronico"
+            placeholder="Correo electrónico"
             value={email}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -263,7 +263,7 @@ const SignUp = (props) => {
               {warningEmail}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Contrasenya:</Text>
+          <Text style={styles.contrasenya}>Contraseña:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
