@@ -17,6 +17,7 @@ import Payment from './src/screens/Payment';
 import ActiveFilters from './src/screens/ActiveFilters';
 import { ScreensProvider } from './src/screens/ScreenContext';
 import ScreenContext from './src/screens/ScreenContext';
+import Configurations from './src/screens/Configurations';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -53,6 +54,11 @@ const ProfileStack = () => (
       name="UpdatePassword"
       component={UpdatePassword}
       options={{ headerShown: false }}
+    />
+      <Stack.Screen
+      name="Configurations"
+      component={Configurations}
+     
     />
   </Stack.Navigator>
 );
