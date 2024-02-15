@@ -41,22 +41,22 @@ const SignUp = (props) => {
 
     if (name == '') {
       setShowWarningName(true);
-      setWarningName('Campo name requerido.');
+      setWarningName('Campo nombre requerido.');
       boolName = false;
     }
     if (surname == '') {
       setShowWarningSurname(true);
-      setWarningSurname('Campo surname requerido.');
+      setWarningSurname('Campo apellidos requerido.');
       boolSurname = false;
     }
     if (email == '') {
       setShowWarningEmail(true);
-      setWarningEmail('Campo email requerido.');
+      setWarningEmail('Campo correo electrónico requerido.');
       boolEmail = false;
     }
     if (pass == '') {
       setShowWarningPass(true);
-      setWarningPass('Campo password requerido.');
+      setWarningPass('Campo contraseña requerido.');
       boolPass = false;
     }
     return boolName && boolSurname && boolEmail && boolPass;
@@ -243,7 +243,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correo electronico:</Text>
+          <Text style={styles.contrasenya}>Correo electrónico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
