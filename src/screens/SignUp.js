@@ -1,7 +1,7 @@
-import React from 'react';
 import { useState, useContext } from 'react';
 import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
+import CryptoJS from 'crypto-js';
 
 import ScreenContext from './ScreenContext';
 
@@ -121,11 +121,12 @@ const SignUp = (props) => {
 
   const handlePostRegister = () => {
     let url = 'http://44.195.98.192:8080/ESTRELLAS/register';
+    const md5Password = CryptoJS.MD5(pass).toString();
 
     let body = {
       name: name,
       surname: surname,
-      password: pass,
+      password: md5Password,
       email: email,
     };
 
@@ -144,6 +145,7 @@ const SignUp = (props) => {
 
       if (response.ok) {
         if (response.status === 204) {
+          Alert.alert('Information', 'Te has registrado correctamente.');
           return { status: response.status, data: null };
         } else {
           const responseData = await response.json();
@@ -196,7 +198,7 @@ const SignUp = (props) => {
             : { backgroundColor: 'lightblue' },
         ]}>
         <View style={styles.sectionContainer}>
-          <Text style={styles.usuari}>Nombre:</Text>
+          <Text style={styles.usuari}>Nom:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -216,7 +218,7 @@ const SignUp = (props) => {
               {warningName}
             </Text>
           ) : null}
-          <Text style={styles.usuari}>Apellidos:</Text>
+          <Text style={styles.usuari}>Cognoms:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -236,7 +238,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correo electrónico:</Text>
+          <Text style={styles.contrasenya}>Correu electronic:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -245,7 +247,7 @@ const SignUp = (props) => {
                 setShowWarningEmail(false);
               }
             }}
-            placeholder="Correo electrónico"
+            placeholder="Correo electronico"
             value={email}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -256,7 +258,7 @@ const SignUp = (props) => {
               {warningEmail}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Contraseña:</Text>
+          <Text style={styles.contrasenya}>Contrasenya:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -265,7 +267,7 @@ const SignUp = (props) => {
                 setShowWarningPass(false);
               }
             }}
-            placeholder="Contraseña"
+            placeholder="Contrasenya"
             value={pass}
             secureTextEntry={!showPassword}
             mode="outlined"
@@ -280,7 +282,7 @@ const SignUp = (props) => {
           {showWarningPass ? (
             <Text style={{ fontSize: 15, color: 'red' }}>{warningPass}</Text>
           ) : null}
-          <Text style={styles.contrasenya}>Confirmar contraseña:</Text>
+          <Text style={styles.contrasenya}>Confirmar contrasenya:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -289,7 +291,7 @@ const SignUp = (props) => {
                 setShowWarningConfirmPass(false);
               }
             }}
-            placeholder="Confirmar contraseña"
+            placeholder="Confirmar contrasenya"
             value={confirmPass}
             secureTextEntry={!showConfirmPassword}
             mode="outlined"
@@ -347,7 +349,7 @@ const SignUp = (props) => {
             mode="contained"
             icon="account-plus"
             onPress={() => handleRegister()}>
-            CREAR CUENTA
+            CREAR COMPTE
           </Button>
         </View>
       </View>
