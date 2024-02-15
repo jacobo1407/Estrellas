@@ -28,8 +28,17 @@ const ForgotPassword = ({ navigation }) => {
     let body = email;
     postDataEmail(url, body);
 
+    setTimeRemain(30);
     const intervalId = setInterval(() => {
-      setTimeRemain((prevTiempo) => prevTiempo - 1);
+      setTimeRemain((prevTiempo) => {
+        if (prevTiempo > 0) {
+          return prevTiempo - 1;
+        } else {
+          clearInterval(intervalId);
+          setButtonEnabled(true);
+          return 0;
+        }
+      });
     }, 1000);
 
     setTimeout(() => {
