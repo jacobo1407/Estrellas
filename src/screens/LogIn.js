@@ -82,7 +82,7 @@ const LogIn = () => {
         Datos Inicio de Sesión
       </Text>
       <TextInput
-        label="Correo electrónico"
+        label="📧 Correo electrónico"
         onChangeText={handleEmailChange}
         value={email}
         placeholder="Introduce correo"
@@ -90,7 +90,7 @@ const LogIn = () => {
         outlineColor={theme === 'black' ? 'white' : 'purple'}
       />
       <TextInput
-        label="Contraseña"
+        label="🔒 Contraseña"
         onChangeText={handlePasswordChange}
         value={password}
         placeholder="Introduce Contraseña"
