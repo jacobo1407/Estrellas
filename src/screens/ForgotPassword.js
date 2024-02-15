@@ -108,13 +108,23 @@ const ForgotPassword = ({ navigation }) => {
           />
           {showConfirmEmail ? (
             <View style={styles.confirmCode}>
-              <Text style={styles.usuari}>CONFIRMACIÓN DE REGISTRO:</Text>
+              <Text
+                style={[
+                  styles.usuari,
+                  theme === 'black' ? { color: 'white' } : { color: 'black' },
+                ]}>
+                CONFIRMACIÓN DE REGISTRO:
+              </Text>
               {!buttonEnabled ? (
                 <Text style={{ fontSize: 15, color: 'red' }}>
                   Espera {timeRemain}s para volver a intentar
                 </Text>
               ) : null}
-              <Text style={{ marginTop: 10, fontSize: 20 }}>
+              <Text
+                style={[
+                  { marginTop: 10, fontSize: 20 },
+                  theme === 'black' ? { color: 'white' } : { color: 'black' },
+                ]}>
                 Introduce el código:
               </Text>
               <TextInput
