@@ -5,6 +5,7 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ScreenContext from './ScreenContext';
 import getData from '../Services/GetData';
+import { useTranslation } from 'react-i18next';
 
 const Rooms = (props) => {
   const { theme, room, id } = useContext(ScreenContext);
@@ -16,6 +17,7 @@ const Rooms = (props) => {
   const [beds, setBeds] = useState(null);
   const [m2, setM2] = useState(null);
   const [index, setIndex] = useState(0);
+  const { t } = useTranslation();
 
   console.log(room);
   useEffect(() => {
@@ -135,7 +137,7 @@ const Rooms = (props) => {
                 { fontSize: 18, fontWeight: 'bold' },
                 theme === 'black' ? { color: 'white' } : { color: 'black' },
               ]}>
-              Description
+              {t("Descripción")}
             </Text>
             <Text
               style={[
@@ -150,7 +152,7 @@ const Rooms = (props) => {
                 { fontSize: 18, fontWeight: 'bold' },
                 theme === 'black' ? { color: 'white' } : { color: 'black' },
               ]}>
-              Information
+            {t("Información")}
             </Text>
             <RoomFeatures
               peopleNumber={peopleNumber}
@@ -175,7 +177,7 @@ const Rooms = (props) => {
                 style={styles.button}
                 mode="contained"
                 onPress={() => handlePaymentOnPress()}>
-                RESERVAR
+                {t("RESERVAR")}
               </Button>
             </View>
           </View>
