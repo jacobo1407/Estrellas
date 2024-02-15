@@ -212,7 +212,7 @@ const SignUp = (props) => {
                 setShowWarningName(false);
               }
             }}
-            placeholder="Nombre"
+            placeholder="👤 Nombre"
             value={name}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -232,7 +232,7 @@ const SignUp = (props) => {
                 setShowWarningSurname(false);
               }
             }}
-            placeholder="Apellidos"
+            placeholder="👤 Apellidos"
             value={surname}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -243,7 +243,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correo electrónico:</Text>
+          <Text style={styles.contrasenya}>Correo electronico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -252,7 +252,7 @@ const SignUp = (props) => {
                 setShowWarningEmail(false);
               }
             }}
-            placeholder="Correo electrónico"
+            placeholder="📧 Correo electronico"
             value={email}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -272,7 +272,7 @@ const SignUp = (props) => {
                 setShowWarningPass(false);
               }
             }}
-            placeholder="Contraseña"
+            placeholder="🔒 Contraseña"
             value={pass}
             secureTextEntry={!showPassword}
             mode="outlined"
@@ -296,7 +296,7 @@ const SignUp = (props) => {
                 setShowWarningConfirmPass(false);
               }
             }}
-            placeholder="Confirmar contraseña"
+            placeholder="🔒 Confirmar contraseña"
             value={confirmPass}
             secureTextEntry={!showConfirmPassword}
             mode="outlined"
