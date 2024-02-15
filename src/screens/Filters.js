@@ -14,6 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import getData from '../Services/GetData';
 import ScreensContext from './ScreenContext';
 import { ActivityIndicator, MD2Colors } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
 const Filters = ({ navigation }) => {
   const {
@@ -25,6 +26,7 @@ const Filters = ({ navigation }) => {
     setEntranceDateContext,
     setExitDateContext,
   } = useContext(ScreensContext);
+  const { t } = useTranslation();
   const [selectedDateEntrada, setSelectedDateEntrada] = useState(new Date());
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -76,13 +78,13 @@ const Filters = ({ navigation }) => {
     if (dateEnterObj.getDate() < currentDate.getDate()) {
       setErrorMessageDateEntry({
         msgDate:
-          'Error: La fecha de entrada no puede ser anterior a la fecha actual.',
+        t('Error: La fecha de entrada no puede ser anterior a la fecha actual.')
       });
       setDateEntryError(true);
     } else if (dateEnterObj.getTime() >= selectedDateSalida.getTime()) {
       setErrorMessageDateEntry({
         msgDate:
-          'Error: La fecha de entrada no puede ser igual o mayor que la fecha de salida.',
+        t('Error: La fecha de entrada no puede ser igual o mayor que la fecha de salida.'),
       });
       setDateEntryError(true);
     } else {
@@ -99,13 +101,13 @@ const Filters = ({ navigation }) => {
     if (dateExitObj.getDate() < currentDate.getDate()) {
       setErrorMessageDateExit({
         msgDate:
-          'Error: La fecha de salida no puede ser anterior a la fecha actual.',
+        t('Error: La fecha de salida no puede ser anterior a la fecha actual.'),
       });
       setDateExitError(true);
     } else if (dateExitObj.getTime() <= selectedDateEntrada.getTime()) {
       setErrorMessageDateExit({
         msgDate:
-          'Error: La fecha de salida debe ser posterior a la fecha de entrada.',
+        t('Error: La fecha de salida debe ser posterior a la fecha de entrada.'),
       });
       setDateExitError(true);
     } else {
@@ -144,7 +146,7 @@ const Filters = ({ navigation }) => {
       if (response === 'Error') {
         Alert.alert(
           'Error',
-          'La fecha de entrada es mayor que la fecha de salida.'
+          t('La fecha de entrada es mayor que la fecha de salida.') 
         );
       } else {
         response.forEach((room) => {
@@ -178,7 +180,7 @@ const Filters = ({ navigation }) => {
       console.log('Error al obtener datos:', error);
       Alert.alert(
         'Error',
-        'No hay habitaciones disponibles para las fechas seleccionadas.'
+        t('No hay habitaciones disponibles para las fechas seleccionadas.')
       );
       setLoading(false);
     }
@@ -199,18 +201,18 @@ const Filters = ({ navigation }) => {
               styles.filterButtonText,
               theme === 'black' ? { color: 'white' } : { color: 'black' },
             ]}>
-            RESERVA HABITACIONES
+            {t("RESERVA HABITACIONES")}
           </Text>
           <View style={styles.swiperBorder} />
           <View style={styles.dateContainer}>
             <View style={styles.dates}>
-              <Text style={styles.datePickerLabel}>Introduce fechas</Text>
+              <Text style={styles.datePickerLabel}>{t("Introduce fechas")}</Text>
               <View style={styles.calendar}>
                 <Icon name="calendar" size={24} color="black" />
               </View>
             </View>
             <TouchableOpacity onPress={showDatePickerEntrada}>
-              <Text style={styles.dateLabelText}>Fecha de entrada:</Text>
+              <Text style={styles.dateLabelText}>{t("Fecha de entrada:")}</Text>
               <Text style={styles.selectedDateText}>
                 {selectedDateEntrada.toDateString()}
               </Text>
@@ -231,7 +233,7 @@ const Filters = ({ navigation }) => {
               </View>
             )}
             <TouchableOpacity onPress={showDatePickerSalida}>
-              <Text style={styles.dateLabelText}>Fecha de salida:</Text>
+              <Text style={styles.dateLabelText}>{t("Fecha de salida:")}</Text>
               <Text style={styles.selectedDateText}>
                 {selectedDateSalida.toDateString()}
               </Text>
@@ -256,10 +258,10 @@ const Filters = ({ navigation }) => {
           <View style={styles.peopleContainer}>
             <View style={styles.people}>
               <Icon name="account" size={24} color="black" />
-              <Text style={styles.personsLabel}>Cantidad de personas</Text>
+              <Text style={styles.personsLabel}>{t("Cantidad de personas")}</Text>
             </View>
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Adultos</Text>
+              <Text style={styles.label}>{t("Adultos")}</Text>
               <Button
                 onPress={() => validateNumAdults(1)}
                 icon="minus"
@@ -298,7 +300,7 @@ const Filters = ({ navigation }) => {
                 disabled={numAdults === 7}></Button>
             </View>
             <View style={styles.inputContainer}>
-              <Text style={styles.label}>Niños</Text>
+              <Text style={styles.label}>{t("Niños")}</Text>
               <Button
                 onPress={() => validateNumChildren(1)}
                 icon="minus"
@@ -350,7 +352,7 @@ const Filters = ({ navigation }) => {
                 fontWeight: 'bold',
               }}
               style={styles.filter}>
-              APLICAR FILTRES
+              {t("APLICAR FILTROS")}
             </Button>
           </View>
           {loading && (
