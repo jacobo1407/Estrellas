@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useContext } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import ScreenContext from './ScreenContext';
@@ -81,7 +81,7 @@ const SignUp = (props) => {
   };
 
   const handlePostEmail = () => {
-    let url = 'http://44.195.98.192:8080/ESTRELLAS/emailConfirmation';
+    let url = 'http://44.195.98.192:8080/ESTRELLAS/emailConfirmationSignUp';
     setButtonEnabled(false);
 
     let body = email;
@@ -107,11 +107,12 @@ const SignUp = (props) => {
       });
 
       if (response.ok) {
+        setShowConfirmEmail(true);
         const codigoRecibido = await response.text();
         setCode(codigoRecibido);
         return { status: response.status, data: codigoRecibido };
       } else {
-        throw new Error('Network response was not ok.');
+        Alert.alert('Error', 'Ya existe un correo registrado anteriormente.');
       }
     } catch (error) {
       console.error('There was a problem with the POST request:', error);
@@ -160,12 +161,11 @@ const SignUp = (props) => {
     if (warningsComplete()) {
       if (validatePassword()) {
         if (pass == confirmPass) {
-          handlePostRegister();
           if (!showConfirmEmail) {
-            setShowConfirmEmail(true);
             handlePostEmail();
           } else {
             if (codeInsert == code) {
+              handlePostRegister();
               props.navigation.navigate('LogIn');
             } else {
               setWarningConfirmEmail('Código introducido no válido');
@@ -196,7 +196,7 @@ const SignUp = (props) => {
             : { backgroundColor: 'lightblue' },
         ]}>
         <View style={styles.sectionContainer}>
-          <Text style={styles.usuari}>Nom:</Text>
+          <Text style={styles.usuari}>Nombre:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -216,7 +216,7 @@ const SignUp = (props) => {
               {warningName}
             </Text>
           ) : null}
-          <Text style={styles.usuari}>Cognoms:</Text>
+          <Text style={styles.usuari}>Apellidos:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -236,7 +236,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correu electronic:</Text>
+          <Text style={styles.contrasenya}>Correo electrónico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -245,7 +245,7 @@ const SignUp = (props) => {
                 setShowWarningEmail(false);
               }
             }}
-            placeholder="Correo electronico"
+            placeholder="Correo electrónico"
             value={email}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -256,7 +256,7 @@ const SignUp = (props) => {
               {warningEmail}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Contrasenya:</Text>
+          <Text style={styles.contrasenya}>Contraseña:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -265,7 +265,7 @@ const SignUp = (props) => {
                 setShowWarningPass(false);
               }
             }}
-            placeholder="Contrasenya"
+            placeholder="Contraseña"
             value={pass}
             secureTextEntry={!showPassword}
             mode="outlined"
@@ -280,7 +280,7 @@ const SignUp = (props) => {
           {showWarningPass ? (
             <Text style={{ fontSize: 15, color: 'red' }}>{warningPass}</Text>
           ) : null}
-          <Text style={styles.contrasenya}>Confirmar contrasenya:</Text>
+          <Text style={styles.contrasenya}>Confirmar contraseña:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -289,7 +289,7 @@ const SignUp = (props) => {
                 setShowWarningConfirmPass(false);
               }
             }}
-            placeholder="Confirmar contrasenya"
+            placeholder="Confirmar contraseña"
             value={confirmPass}
             secureTextEntry={!showConfirmPassword}
             mode="outlined"
@@ -347,7 +347,7 @@ const SignUp = (props) => {
             mode="contained"
             icon="account-plus"
             onPress={() => handleRegister()}>
-            CREAR COMPTE
+            CREAR CUENTA
           </Button>
         </View>
       </View>
