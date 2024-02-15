@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { StyleSheet, View, Text, ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import CryptoJS from 'crypto-js';
-
 import ScreenContext from './ScreenContext';
 
 const SignUp = (props) => {
@@ -87,9 +86,17 @@ const SignUp = (props) => {
     let body = email;
 
     postDataEmail(url, body);
-
+    setTimeRemain(30);
     const intervalId = setInterval(() => {
-      setTimeRemain((prevTiempo) => prevTiempo - 1);
+      setTimeRemain((prevTiempo) => {
+        if (prevTiempo > 0) {
+          return prevTiempo - 1;
+        } else {
+          clearInterval(intervalId);
+          setButtonEnabled(true);
+          return 0;
+        }
+      });
     }, 1000);
 
     setTimeout(() => {
@@ -122,14 +129,12 @@ const SignUp = (props) => {
   const handlePostRegister = () => {
     let url = 'http://44.195.98.192:8080/ESTRELLAS/register';
     const md5Password = CryptoJS.MD5(pass).toString();
-
     let body = {
       name: name,
       surname: surname,
       password: md5Password,
       email: email,
     };
-
     postData(url, body);
   };
 
