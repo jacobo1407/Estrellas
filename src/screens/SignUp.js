@@ -59,6 +59,11 @@ const SignUp = (props) => {
       setWarningPass('Campo contraseña requerido.');
       boolPass = false;
     }
+    if (confirmPass == '') {
+      setShowWarningPass(true);
+      setWarningPass('Campo confirmar contraseña requerido.');
+      boolPass = false;
+    }
     return boolName && boolSurname && boolEmail && boolPass;
   };
 
