@@ -203,7 +203,7 @@ const SignUp = (props) => {
             : { backgroundColor: 'lightblue' },
         ]}>
         <View style={styles.sectionContainer}>
-          <Text style={styles.usuari}>Nom:</Text>
+          <Text style={styles.usuari}>Nombre:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -223,7 +223,7 @@ const SignUp = (props) => {
               {warningName}
             </Text>
           ) : null}
-          <Text style={styles.usuari}>Cognoms:</Text>
+          <Text style={styles.usuari}>Apellidos:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -243,7 +243,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correu electronic:</Text>
+          <Text style={styles.contrasenya}>Correo electronico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -272,7 +272,7 @@ const SignUp = (props) => {
                 setShowWarningPass(false);
               }
             }}
-            placeholder="Contrasenya"
+            placeholder="Contraseña"
             value={pass}
             secureTextEntry={!showPassword}
             mode="outlined"
@@ -287,7 +287,7 @@ const SignUp = (props) => {
           {showWarningPass ? (
             <Text style={{ fontSize: 15, color: 'red' }}>{warningPass}</Text>
           ) : null}
-          <Text style={styles.contrasenya}>Confirmar contrasenya:</Text>
+          <Text style={styles.contrasenya}>Confirmar contraseña:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -296,7 +296,7 @@ const SignUp = (props) => {
                 setShowWarningConfirmPass(false);
               }
             }}
-            placeholder="Confirmar contrasenya"
+            placeholder="Confirmar contraseña"
             value={confirmPass}
             secureTextEntry={!showConfirmPassword}
             mode="outlined"
@@ -322,7 +322,7 @@ const SignUp = (props) => {
                 </Text>
               ) : null}
               <Text style={{ marginTop: 10, fontSize: 20 }}>
-                Introduce el código:
+                Introduce código:
               </Text>
               <TextInput
                 style={styles.inputCode}
@@ -354,7 +354,7 @@ const SignUp = (props) => {
             mode="contained"
             icon="account-plus"
             onPress={() => handleRegister()}>
-            CREAR COMPTE
+            CREAR CUENTA
           </Button>
         </View>
       </View>
