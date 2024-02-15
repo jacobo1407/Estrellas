@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 import { TextInput, Button, Divider } from 'react-native-paper';
 import ScreenContext from './ScreenContext';
+import { useTranslation } from 'react-i18next';
 
 const Payment = (props) => {
   const { theme } = useContext(ScreenContext);
@@ -13,6 +14,7 @@ const Payment = (props) => {
   const [cardNumber, setCardNumber] = useState('');
   const [cardDate, setCardDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
+  const { t } = useTranslation();
 
   const handleCardOwnerChange = (text) => {
     setCardOwner(text);
@@ -106,16 +108,17 @@ const Payment = (props) => {
 
       if (response.status === 204) {
         if (response.ok) {
-          Alert.alert(
-            'Pago realizado',
-            '¡Tu pago ha sido procesado correctamente!'
+          Alert.alert(t('Pago realizado')
+            ,
+            t('¡Tu pago ha sido procesado correctamente!')
           );
+          
           props.navigation.navigate('Filters');
         }
       } else {
         Alert.alert(
-          'Pago no realizado',
-          'Se ha producido un error al momento de pagar.'
+            t('Pago no realizado'),
+          t('Se ha producido un error al momento de pagar.')
         );
       }
     } catch (error) {
@@ -136,7 +139,7 @@ const Payment = (props) => {
           styles.title,
           theme === 'black' ? { color: 'white' } : { color: 'black' },
         ]}>
-        Realizar pago
+        {t("Realizar Pago")}
       </Text>
       <TextInput
         label="💳 Titular de la tarjeta"
@@ -181,7 +184,7 @@ const Payment = (props) => {
             letterSpacing: 1,
           }}
           onPress={handlePayment}>
-          PAGAR
+          {t("PAGAR")}
         </Button>
       </View>
     </View>
