@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react';
-
 const ScreensContext = createContext();
 
 export const ScreensProvider = ({ children }) => {
   const [id, setId] = useState(-1);
   const [room, setRoom] = useState(null);
-  const [theme, setTheme] = useState('blaclk');
+  const [theme, setTheme] = useState('black');
+  const [email, setEmail] = useState(null);
   const [filterRooms, setFilterRooms] = useState([]);
   const [imagesRooms, setImagesRooms] = useState([]);
   const [entranceDateContext, setEntranceDateContext] = useState('');
@@ -20,6 +20,8 @@ export const ScreensProvider = ({ children }) => {
         setRoom,
         theme,
         setTheme,
+        email,
+        setEmail,
         filterRooms,
         setFilterRooms,
         imagesRooms,
