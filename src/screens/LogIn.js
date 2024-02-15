@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import ScreenContext from './ScreenContext';
@@ -25,12 +25,11 @@ const LogIn = () => {
 
   const handleLogin = () => {
     const url = 'http://44.195.98.192:8080/ESTRELLAS/login';
-
+    const md5Password = CryptoJS.MD5(password).toString();
     const body = {
       email: email,
-      password: password,
+      password: md5Password,
     };
-
     postData(url, body);
   };
 
@@ -49,17 +48,12 @@ const LogIn = () => {
           const jsonResponse = await response.json();
           const id = jsonResponse.id;
           setId(id);
-
           navigation.navigate('Profile');
         }
       } else {
         setEmail('');
         setPassword('');
-
-        Alert.alert(
-          'Crendenciales incorrectas',
-          'Las credenciales introducidas son incorrectas.'
-        );
+        alert('Credenciales incorrectas.');
       }
     } catch (error) {
       console.error('An error has occurred with the POST request:', error);
@@ -70,9 +64,7 @@ const LogIn = () => {
     <View
       style={[
         styles.container,
-        theme === 'black'
-          ? { backgroundColor: '#005588' }
-          : { backgroundColor: 'lightblue' },
+        theme === 'black' ? styles.containerDark : styles.containerLight,
       ]}>
       <Text
         style={[
@@ -106,10 +98,20 @@ const LogIn = () => {
           />
         }
       />
+      <Text
+        style={[
+          styles.forgotPasswordText,
+          theme === 'black' ? styles.signupTextDark : styles.signupTextLight,
+        ]}
+        onPress={() => navigation.navigate('ForgotPassword')}>
+        ¿Has olvidado la contraseña?
+      </Text>
+
       <View style={{ marginTop: 30 }}>
         <Button
           style={styles.button}
           mode="contained"
+          icon="login"
           color={theme === 'black' ? 'white' : 'black'}
           onPress={handleLogin}>
           Iniciar Sesión
@@ -133,6 +135,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
+  containerDark: {
+    backgroundColor: '#001122',
+  },
+  containerLight: {
+    backgroundColor: 'lightblue',
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -152,6 +160,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     fontSize: 16,
+  },
+  forgotPasswordText: {
+    marginTop: 16,
+    textAlign: 'right',
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
   signupTextDark: {
     color: 'white',
