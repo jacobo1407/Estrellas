@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Image } from 'react-native';
+import {
+  View,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  Text,
+} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,8 +17,6 @@ import Rooms from './src/screens/Rooms';
 import Profile from './src/screens/Profile';
 import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
-import ForgotPassword from './src/screens/ForgotPassword';
-import UpdatePassword from './src/screens/UpdatePassword';
 import Filters from './src/screens/Filters';
 import Payment from './src/screens/Payment';
 import ActiveFilters from './src/screens/ActiveFilters';
@@ -46,16 +51,6 @@ const ProfileStack = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="ForgotPassword"
-      component={ForgotPassword}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="UpdatePassword"
-      component={UpdatePassword}
-      options={{ headerShown: false }}
-    />
-      <Stack.Screen
       name="Configurations"
       component={Configurations}
      
