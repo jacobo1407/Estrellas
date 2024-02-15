@@ -38,6 +38,7 @@ const SignUp = (props) => {
     let boolSurname = true;
     let boolEmail = true;
     let boolPass = true;
+    let boolConfirmPass = true;
 
     if (name == '') {
       setShowWarningName(true);
@@ -60,11 +61,11 @@ const SignUp = (props) => {
       boolPass = false;
     }
     if (confirmPass == '') {
-      setShowWarningPass(true);
-      setWarningPass('Campo confirmar contraseña requerido.');
-      boolPass = false;
+      setShowConfirmPassword(true);
+      setWarningConfirmPass('Campo confirmar contraseña requerido.');
+      boolConfirmPass = false;
     }
-    return boolName && boolSurname && boolEmail && boolPass;
+    return boolName && boolSurname && boolEmail && boolPass && boolConfirmPass;
   };
 
   const validatePassword = () => {
@@ -172,11 +173,11 @@ const SignUp = (props) => {
   const handleRegister = () => {
     if (warningsComplete()) {
       if (validatePassword()) {
-        if (pass == confirmPass) {
+        if (pass === confirmPass) {
           if (!showConfirmEmail) {
             handlePostEmail();
           } else {
-            if (codeInsert == code) {
+            if (codeInsert === code) {
               handlePostRegister();
               props.navigation.navigate('LogIn');
             } else {
@@ -190,7 +191,7 @@ const SignUp = (props) => {
       } else {
         setShowWarningPass(true);
         setWarningPass(
-          'La contraseña no es válida. \nDebe de contener almenos: \n\t8 caracteres \n\t1 letra mayúscula \n\t1 número \n\t1 carácter especial.'
+          'La contraseña no es válida. \nDebe de contener al menos: \n\t8 caracteres \n\t1 letra mayúscula \n\t1 número \n\t1 carácter especial.'
         );
       }
     } else {
@@ -248,7 +249,7 @@ const SignUp = (props) => {
               {warningSurname}
             </Text>
           ) : null}
-          <Text style={styles.contrasenya}>Correo electrónico:</Text>
+          <Text style={styles.contrasenya}>Correo electronico:</Text>
           <TextInput
             style={styles.input}
             onChangeText={(text) => {
@@ -257,7 +258,7 @@ const SignUp = (props) => {
                 setShowWarningEmail(false);
               }
             }}
-            placeholder="📧 Correo electronico"
+            placeholder="📧 Correo electrónico"
             value={email}
             mode="outlined"
             outlineColor="#d4afe0"
@@ -313,7 +314,7 @@ const SignUp = (props) => {
               />
             }
           />
-          {showWarningConfirmPass ? (
+          {showConfirmPassword ? (
             <Text style={{ fontSize: 15, color: 'red' }}>
               {warningConfirmPass}
             </Text>
