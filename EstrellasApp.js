@@ -19,10 +19,11 @@ import LogIn from './src/screens/LogIn';
 import SignUp from './src/screens/SignUp';
 import Filters from './src/screens/Filters';
 import Payment from './src/screens/Payment';
+import ForgotPassword from './src/screens/ForgotPassword';
 import ActiveFilters from './src/screens/ActiveFilters';
+import UpdatePassword from './src/screens/UpdatePassword';
 import { ScreensProvider } from './src/screens/ScreenContext';
 import ScreenContext from './src/screens/ScreenContext';
-import Configurations from './src/screens/Configurations';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -51,9 +52,14 @@ const ProfileStack = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="Configurations"
-      component={Configurations}
-     
+      name="ForgotPassword"
+      component={ForgotPassword}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="UpdatePassword"
+      component={UpdatePassword}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
@@ -71,16 +77,8 @@ const RoomsStack = () => (
       component={Filters}
       options={{ headerShown: false }}
     />
-    <Stack.Screen
-      name="ActiveFilters"
-      component={ActiveFilters}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Rooms"
-      component={Rooms}
-      options={{ headerShown: false }}
-    />
+    <Stack.Screen name="ActiveFilters" component={ActiveFilters} />
+    <Stack.Screen name="Rooms" component={Rooms} />
     <Stack.Screen
       name="Payment"
       component={Payment}
@@ -163,7 +161,6 @@ const App = () => {
           name="Profile"
           component={ProfileStack}
           options={{
-            tabBarHideOnKeyboard: true,
             headerTitle: () => (
               <Image
                 source={require('./src/img/estrellas.png')}
