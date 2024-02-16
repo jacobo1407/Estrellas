@@ -19,10 +19,11 @@ import {
 } from 'react-native-paper';
 import ScreenContext from './ScreenContext';
 import { useTranslation } from 'react-i18next';
+
 const images = [
+  require('../img/fachadaHotel.jpg'),
   require('../img/hall.jpg'),
-  require('../img/zonaPisci.jpg'),
-  require('../img/camas.jpg'),
+  require('../img/comedor.jpg'),
 ];
 
 const Home = () => {
@@ -85,7 +86,7 @@ const Home = () => {
                 styles.serviciosTitle,
                 theme === 'black' ? { color: 'white' } : { color: 'black' },
               ]}>
-              {t("SERVICIOS")} 
+              {t("SERVICIOS")}
             </Text>
           </View>
           <ScrollView
@@ -95,12 +96,12 @@ const Home = () => {
             <TouchableOpacity onPress={handlePoolModal}>
               <Card style={styles.card}>
                 <Image
-                  source={require('../img/piscina.jpg')}
+                  source={require('../img/PiscinaExterior.jpg')}
                   style={styles.imageCard}
                   resizeMode="cover"
                 />
                 <Card.Content>
-                  <Title style={styles.text}>Piscina climatizada</Title>
+                  <Title style={styles.text}>Piscina exterior</Title>
                 </Card.Content>
               </Card>
             </TouchableOpacity>
@@ -108,12 +109,64 @@ const Home = () => {
             <TouchableOpacity onPress={handleMassageModal}>
               <Card style={styles.card}>
                 <Image
-                  source={require('../img/masajes.jpg')}
+                  source={require('../img/masaje.jpg')}
                   style={styles.imageCard}
                   resizeMode="cover"
                 />
                 <Card.Content>
-                  <Title style={styles.text}>Masajes</Title>
+                  <Title style={styles.text}>Zona de masajes</Title>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Card style={styles.card}>
+                <Image
+                  source={require('../img/ZonaComun.jpg')}
+                  style={styles.imageCard}
+                  resizeMode="cover"
+                />
+                <Card.Content>
+                  <Title style={styles.text}>Zona común</Title>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Card style={styles.card}>
+                <Image
+                  source={require('../img/Gym.jpg')}
+                  style={styles.imageCard}
+                  resizeMode="cover"
+                />
+                <Card.Content>
+                  <Title style={styles.text}>Gimnasio</Title>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Card style={styles.card}>
+                <Image
+                  source={require('../img/comedor.jpg')}
+                  style={styles.imageCard}
+                  resizeMode="cover"
+                />
+                <Card.Content>
+                  <Title style={styles.text}>Comedor</Title>
+                </Card.Content>
+              </Card>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <Card style={styles.card}>
+                <Image
+                  source={require('../img/ParqueInfantil.jpg')}
+                  style={styles.imageCard}
+                  resizeMode="cover"
+                />
+                <Card.Content>
+                  <Title style={styles.text}>Parque infantil</Title>
                 </Card.Content>
               </Card>
             </TouchableOpacity>
